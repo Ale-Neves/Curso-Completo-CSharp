@@ -19,5 +19,11 @@
                 Saldo += quantia;
             }
         }
+
+        public override void Sacar(double quantia)
+        {
+            base.Sacar(quantia);
+            Saldo -= 5.00;
+        }
     }
 }

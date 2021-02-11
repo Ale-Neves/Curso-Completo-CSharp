@@ -6,23 +6,25 @@ namespace _1_Exerc
     {
         static void Main(string[] args)
         {
+            Conta cont = new Conta(1, "Marcelo", 1500.00);
 
-            Console.Write("Numero Conta: ");
-            int numero = int.Parse(Console.ReadLine());
-            Console.Write("Nome Titular: ");
-            string nome = Console.ReadLine();
-            Console.Write("Saldo da Conta: ");
-            double saldo = double.Parse(Console.ReadLine());
-            Console.Write("Limite de Emprestimo: ");
-            double limite = double.Parse(Console.ReadLine());
+            ContaDeNegocio contNegocio = new ContaDeNegocio(2, "Alexandre", 550.00 , 200.00);
 
-            ContaDeNegocio ctNegocio = new ContaDeNegocio(numero, nome, saldo, limite);
+            // UPCASTING
 
-            Console.WriteLine("\n\n----------------------- ");
-            Console.WriteLine("Numero Conta: " + ctNegocio.Numero);
-            Console.WriteLine("Nome Titular: " + ctNegocio.Titular);
-            Console.WriteLine("Saldo da Conta: " + ctNegocio.Saldo);
-            Console.WriteLine("Limite de Emprestimo: " + ctNegocio.LimiteEmprestimo);
+            Conta conta1 = new Conta(1, "Pedro", 300.00);
+
+            Conta conta2 = new ContaPoupanca(2, "Maria", 300.00, 0.10);
+
+            Conta conta3 = new ContaDeNegocio(3, "Joao", 300.00, 200.00);
+
+            conta1.Sacar(10.00); 
+            conta2.Sacar(10.00);
+            conta3.Sacar(10.00);
+
+            Console.WriteLine(conta1.Saldo); // Resultado: 285.00
+            Console.WriteLine(conta2.Saldo); // Resultado: 290.00
+            Console.WriteLine(conta3.Saldo); // Resultado: 290.00
         }
     }
 }

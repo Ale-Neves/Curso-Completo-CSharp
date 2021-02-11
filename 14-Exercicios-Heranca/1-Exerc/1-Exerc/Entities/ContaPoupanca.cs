@@ -20,5 +20,10 @@ namespace _1_Exerc.Entities
         {
             Saldo += quantia * TaxaJuros;
         }
+
+        public override void Sacar(double quantia)
+        {
+            Saldo -= quantia;
+        }
     }
 }

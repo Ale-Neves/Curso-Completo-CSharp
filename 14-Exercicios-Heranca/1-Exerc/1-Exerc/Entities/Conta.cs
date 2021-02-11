@@ -21,9 +21,9 @@ namespace _1_Exerc.Entities
             Saldo = saldo;
         }
 
-        public void Sacar(double quantia)
+        public virtual void Sacar(double quantia)
         {
-            Saldo -= quantia;
+            Saldo -= quantia + 5;
         }
         public void Depositar(double quantia)
         {
