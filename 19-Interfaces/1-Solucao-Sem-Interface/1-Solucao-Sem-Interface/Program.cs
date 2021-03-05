@@ -21,7 +21,7 @@ namespace _1_Solucao_Sem_Interface
             double valorDia = double.Parse(Console.ReadLine());
 
             AlugelDeCarros alugCar = new AlugelDeCarros(entrada, saida, new Veiculo(modelo));
-            ServicoDeAluguel servAlug = new ServicoDeAluguel(valorHora, valorDia);
+            ServicoDeAluguel servAlug = new ServicoDeAluguel(valorHora, valorDia, new TaxaServicoBrasil());
 
             servAlug.ProcessarFatura(alugCar);
 

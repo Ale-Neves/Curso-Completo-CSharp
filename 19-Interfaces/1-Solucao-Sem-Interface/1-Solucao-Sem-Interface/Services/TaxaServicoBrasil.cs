@@ -1,6 +1,6 @@
 ﻿namespace _1_Solucao_Sem_Interface.Services
 {
-    class TaxaServicoBrasil
+    class TaxaServicoBrasil : ITaxaDeServico
     {
         public double Taxa(double quantia)
         {

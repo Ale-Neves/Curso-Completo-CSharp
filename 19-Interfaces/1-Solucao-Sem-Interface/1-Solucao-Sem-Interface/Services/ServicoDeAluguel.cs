@@ -10,12 +10,13 @@ namespace _1_Solucao_Sem_Interface.Services
         public double ValorPorHora { get; private set; }
         public double ValorPorDia { get; private set; }
 
-        private TaxaServicoBrasil _taxaServicoBrasil = new TaxaServicoBrasil();
+        private ITaxaDeServico _taxaServico;
 
-        public ServicoDeAluguel(double valorPorHora, double valorPorDia)
+        public ServicoDeAluguel(double valorPorHora, double valorPorDia, ITaxaDeServico taxaDeServico)
         {
             ValorPorHora = valorPorHora;
             ValorPorDia = valorPorDia;
+            _taxaServico = taxaDeServico;
         }
 
         public void ProcessarFatura(AlugelDeCarros alugelDeCarros)
@@ -33,7 +34,7 @@ namespace _1_Solucao_Sem_Interface.Services
                 pagamentoBasico = ValorPorDia * Math.Ceiling(duracao.TotalDays);
             }
 
-            double taxa = _taxaServicoBrasil.Taxa(pagamentoBasico);
+            double taxa = _taxaServico.Taxa(pagamentoBasico);
 
             alugelDeCarros.Fatura = new Fatura(pagamentoBasico, taxa);
         }
