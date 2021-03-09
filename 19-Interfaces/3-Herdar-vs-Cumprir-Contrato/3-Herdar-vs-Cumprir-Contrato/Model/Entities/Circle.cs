@@ -5,7 +5,7 @@ using System.Text;
 namespace _3_Herdar_vs_Cumprir_Contrato.Model.Entities
 {
     // ERDANDO DA CLASSE SHAPE.
-    class Circle : Shape
+    class Circle : AbstractShape
     {
         public double Radius { get; set; }
         

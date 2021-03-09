@@ -4,7 +4,7 @@ using System.Text;
 
 namespace _3_Herdar_vs_Cumprir_Contrato.Model.Entities
 {
-    class Retangulo : Shape
+    class Retangulo : AbstractShape
     {
         public double Width { get; set; }
         public double Height { get; set; }
