@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using _5_Interface_IComparable.Entities;
 
 namespace _5_Interface_IComparable
 {
@@ -14,17 +15,17 @@ namespace _5_Interface_IComparable
             {
                 using(StreamReader sr = File.OpenText(path))
                 {
-                    List<string> list = new List<string>();
+                    List<Employee> list = new List<Employee>();
                     while(!sr.EndOfStream)
                     {
-                        list.Add(sr.ReadLine());
+                        list.Add(new Employee(sr.ReadLine()));
                     }
                     // Ordena a lista.
                     list.Sort();
                     
-                    foreach(string str in list)
+                    foreach(Employee emp in list)
                     {
-                        Console.WriteLine(str);
+                        Console.WriteLine(emp);
                     }
                 }
             }
