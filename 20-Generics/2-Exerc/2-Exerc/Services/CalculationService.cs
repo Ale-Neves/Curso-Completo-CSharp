@@ -6,15 +6,16 @@ namespace _2_Exerc.Services
 {
     class CalculationService
     {
-        public int Max(List<int> list)
+        //Criando um Metodo Generic 
+        public T Max<T>(List<T> list) where T : IComparable 
         {
             if (list.Count == 0)
                 throw new ArgumentException("The list can not be empty");
 
-            int max = list[0];
+            T max = list[0];
             for(int i=0; i<list.Count; i++)
             {
-                if(list[i] > max)
+                if(list[i].CompareTo(max) > 0)
                 {
                     max = list[i];
                 }
