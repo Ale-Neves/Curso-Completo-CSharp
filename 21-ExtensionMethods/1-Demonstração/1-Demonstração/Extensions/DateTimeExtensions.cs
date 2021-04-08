@@ -21,6 +21,9 @@ namespace _1_Demonstração.Extensions
             {
                 return duration.TotalDays.ToString("f2", CultureInfo.InvariantCulture) + "Days";
             }
+
+            string s1 = "Good morning dear students";
+            Console.WriteLine(s1.Cut(10));
         }
     }
 }
