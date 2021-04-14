@@ -17,14 +17,20 @@ namespace _4_Predicate
             list.Add(new Product("Tablet", 350.50));
             list.Add(new Product("HD Case", 80.90));
 
-            //Remove apartir da expressão lambda
-            list.RemoveAll(p => p.Price >= 100.00);
+            //Remove apartir do pradicate
+            list.RemoveAll(ProductTeste);
 
             //Imprimindo
             foreach(Product p in list)
             {
                 Console.WriteLine(p);
             }
+        }
+
+        // Metodo bool recebendo objeto
+        public static bool ProductTeste(Product p)
+        {
+            return p.Price >= 100.00;
         }
     }
 }
