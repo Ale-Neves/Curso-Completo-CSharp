@@ -66,9 +66,44 @@ namespace _2_Exemplo_LINQ_com_Lambda
 
             //Filtra e retornar apenas 1 resultado ou nenhum caso não exista.
             var r8 = products.Where(x => x.Id == 3).SingleOrDefault();
-            Console.WriteLine("Single or default test 01: " +  r8);
+            Console.WriteLine("Single or default test 01: " +  r8 + "\n");
 
+            //Pegando o maximo com base no preço 
+            var r9= products.Max(x => x.Price);
+            Console.WriteLine("Max price: " + r9 + "\n");
 
+            //Pegando o minimo com base no preço 
+            var r10 = products.Min(x => x.Price);
+            Console.WriteLine("Min price: " + r10 + "\n");
+
+            //Filtrando por id de categoria e fazendo a soma dos preços entre eles.
+            var r11 = products.Where(x => x.Category.Id == 1).Sum(x => x.Price);
+            Console.WriteLine("Category 1 Sum prices: " + r11 + "\n");
+
+            //Filtrando por id de categoria e fazendo a media dos preços entre eles.
+            var r12 = products.Where(x => x.Category.Id == 1).Average(x => x.Price);
+            Console.WriteLine("Category 1 Sum prices: " + r12 + "\n");
+
+            //Filtrando por id de categoria QUE NAO EXISTE e fazendo a media dos preços entre eles.
+            var r13 = products.Where(p => p.Category.Id == 5).Select(p => p.Price).DefaultIfEmpty(0.0).Average();
+            Console.WriteLine("Category 5 Average prices: " + r13 + "\n");
+
+            //Criando a propria expressão labda e colocando um valor inicial caso o id nao exista (0.0);
+            var r14 = products.Where(p => p.Category.Id == 1).Select(p => p.Price).Aggregate(0.0, (x, y) => x + y);
+            Console.WriteLine("Category 1 aggregate sum: " + r14 + "\n");
+
+            //Agrupando os produtos por categoria
+            var r15 = products.GroupBy(p => p.Category);
+            //Imprimir o agrupamento
+            foreach (IGrouping<Category, Product> group in r15)
+            {
+                Console.WriteLine("Category " + group.Key.Name + ":");
+                foreach (Product p in group)
+                {
+                    Console.WriteLine(p);
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
