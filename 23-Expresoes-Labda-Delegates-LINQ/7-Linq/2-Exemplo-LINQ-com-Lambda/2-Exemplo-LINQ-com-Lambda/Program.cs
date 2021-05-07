@@ -38,64 +38,60 @@ namespace _2_Exemplo_LINQ_com_Lambda
              };
 
             //Filtrando todos produtos do tier 1 e com o preço menor que 900.00
-            var r1 = products.Where(x => x.Category.Tier == 1 && x.Price < 900.0);
+            //var r1 = products.Where(x => x.Category.Tier == 1 && x.Price < 900.0);
+            var r1 =
+                from p in products
+                where p.Category.Tier == 1 && p.Price < 900
+                select p;
             Print("Tier 1 and price < 900: ", r1);
 
             //Filtrando somente os nomes da categoria tools
-            var r2 = products.Where(x => x.Category.Name == "Tools").Select( x => x.Name);
+            //var r2 = products.Where(x => x.Category.Name == "Tools").Select( x => x.Name);
+            var r2 =
+                from p in products
+                where p.Category.Name == "Tools"
+                select p.Name;
             Print("Names of products from tools", r2);
 
             //Filtrar produtos que começam com a letra C
-            var r3 = products.Where(x => x.Name[0] == 'C').Select(x => new { x.Name, x.Price, CategoryName = x.Category.Name });
+            // var r3 = products.Where(x => x.Name[0] == 'C').Select(x => new { x.Name, x.Price, CategoryName = x.Category.Name });
+            var r3 =
+                 from p in products
+                 where p.Name[0] == 'C'
+                 select new
+                 {
+                     p.Name,
+                     p.Price,
+                     CategoryName = p.Category.Name
+                 };
             Print("Names started with 'c' and anonymous object", r3);
 
             //Filtrar produtos que tier da categoria seja igual a 1 e ordenar por preço
-            var r4 = products.Where(x => x.Category.Tier == 1).OrderBy(x => x.Price).ThenBy(x => x.Name);
+           // var r4 = products.Where(x => x.Category.Tier == 1).OrderBy(x => x.Price).ThenBy(x => x.Name);
+            var r4 =
+                from p in products
+                where p.Category.Tier == 1
+                orderby p.Name
+                orderby p.Price
+                select p;
             Print("Tier 1 order by price then by name: ", r4);
 
             //Pular dois elementos e pegar os proximos 4 elementos da r4
-            var r5 = r4.Skip(2).Take(4);
+            //var r5 = r4.Skip(2).Take(4);
+            var r5 =
+                (from p in r4
+                 select p)
+                 .Skip(2)
+                 .Take(4);
             Print("Tier 1 order by price then by name skip 2 take 4: ", r5);
 
-            //Pegar o primeiro elemento da lista
-            var r6 = products.FirstOrDefault();
-            Console.WriteLine("First or default test 01: " + r6);
-
-            var r7 = products.Where(x => x.Price > 3000.0).FirstOrDefault();
-            Console.WriteLine("First or default test 02: " + r7 + "\n");
-
-            //Filtra e retornar apenas 1 resultado ou nenhum caso não exista.
-            var r8 = products.Where(x => x.Id == 3).SingleOrDefault();
-            Console.WriteLine("Single or default test 01: " +  r8 + "\n");
-
-            //Pegando o maximo com base no preço 
-            var r9= products.Max(x => x.Price);
-            Console.WriteLine("Max price: " + r9 + "\n");
-
-            //Pegando o minimo com base no preço 
-            var r10 = products.Min(x => x.Price);
-            Console.WriteLine("Min price: " + r10 + "\n");
-
-            //Filtrando por id de categoria e fazendo a soma dos preços entre eles.
-            var r11 = products.Where(x => x.Category.Id == 1).Sum(x => x.Price);
-            Console.WriteLine("Category 1 Sum prices: " + r11 + "\n");
-
-            //Filtrando por id de categoria e fazendo a media dos preços entre eles.
-            var r12 = products.Where(x => x.Category.Id == 1).Average(x => x.Price);
-            Console.WriteLine("Category 1 Sum prices: " + r12 + "\n");
-
-            //Filtrando por id de categoria QUE NAO EXISTE e fazendo a media dos preços entre eles.
-            var r13 = products.Where(p => p.Category.Id == 5).Select(p => p.Price).DefaultIfEmpty(0.0).Average();
-            Console.WriteLine("Category 5 Average prices: " + r13 + "\n");
-
-            //Criando a propria expressão labda e colocando um valor inicial caso o id nao exista (0.0);
-            var r14 = products.Where(p => p.Category.Id == 1).Select(p => p.Price).Aggregate(0.0, (x, y) => x + y);
-            Console.WriteLine("Category 1 aggregate sum: " + r14 + "\n");
-
             //Agrupando os produtos por categoria
-            var r15 = products.GroupBy(p => p.Category);
+            //var r15 = products.GroupBy(p => p.Category);
+            var r6 =
+                from p in products
+                group p by p.Category;
             //Imprimir o agrupamento
-            foreach (IGrouping<Category, Product> group in r15)
+            foreach (IGrouping<Category, Product> group in r6)
             {
                 Console.WriteLine("Category " + group.Key.Name + ":");
                 foreach (Product p in group)
